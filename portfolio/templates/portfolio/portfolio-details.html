@@ -1,0 +1,10 @@
+{% extends 'portfolio/index.html' %}
+{% block content %}
+  <div class="container">
+    <h1>{{ item.title }}</h1>
+    <p>{{ item.description|safe }}</p>
+    <p>Category: {{ item.category.name }}</p>
+    <p><a href="{{ item.url }}" target="_blank">View on GitHub <i class="bi bi-github"></i></a></p>
+    <a href="{% url 'index' %}">Back to Portfolio</a>
+  </div>
+{% endblock %}
