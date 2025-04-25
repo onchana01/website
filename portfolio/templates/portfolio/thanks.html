@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Thank You | Abner Onchana</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'portfolio/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'portfolio/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'portfolio/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'portfolio/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'portfolio/vendor/aos/aos.css' %}" rel="stylesheet">
+  
+  <!-- Main CSS File -->
+  <link href="{% static 'portfolio/css/main.css' %}" rel="stylesheet">
+
+  <style>
+    .thanks-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .thanks-content {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 50px 30px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    }
+    .thanks-content h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #20b38e;
+    }
+    .thanks-content p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    .btn-primary {
+      background-color: #20b38e;
+      border-color: #20b38e;
+      padding: 10px 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background-color: #198f71;
+      border-color: #198f71;
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <section class="thanks-section">
+      <div class="container text-center" data-aos="fade-up">
+        <div class="thanks-content">
+          <i class="bi bi-check-circle-fill text-success" style="font-size: 64px;"></i>
+          <h2>Thank You!</h2>
+          <p>Your message has been sent successfully. I'll get back to you as soon as possible.</p>
+          <div class="mt-4">
+            <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'portfolio/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'portfolio/vendor/aos/aos.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'portfolio/js/main.js' %}"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -26,3 +26,6 @@ def services(request):
 
 def contact(request):
     return render(request, 'portfolio/index.html')
+
+def thanks(request):
+    return render(request, 'portfolio/thanks.html')

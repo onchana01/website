@@ -132,110 +132,147 @@
   /**
    * Init isotope layout and filters
    */
-  document.querySelectorAll('.isotope-layout').forEach(function(isotopeItem) {
-    let layout = isotopeItem.getAttribute('data-layout') ?? 'masonry';
-    let filter = isotopeItem.getAttribute('data-default-filter') ?? '*';
-    let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
+// document.querySelectorAll('.isotope-layout').forEach(function(isotopeItem) {
+//   let layout = isotopeItem.getAttribute('data-layout') ?? 'masonry';
+//   let filter = isotopeItem.getAttribute('data-default-filter') ?? '*';
+//   let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
 
-    let initIsotope;
-    imagesLoaded(isotopeItem.querySelector('.isotope-container'), function() {
-      initIsotope = new Isotope(isotopeItem.querySelector('.isotope-container'), {
-        itemSelector: '.isotope-item',
-        layoutMode: layout,
-        filter: filter,
-        sortBy: sort
-      });
-    });
+//   let initIsotope;
+//   imagesLoaded(isotopeItem.querySelector('.isotope-container'), function() {
+//     initIsotope = new Isotope(isotopeItem.querySelector('.isotope-container'), {
+//       itemSelector: '.isotope-item',
+//       layoutMode: layout,
+//       filter: filter,
+//       sortBy: sort
+//     });
+//   });
 
-    isotopeItem.querySelectorAll('.isotope-filters li').forEach(function(filters) {
-      filters.addEventListener('click', function() {
-        isotopeItem.querySelector('.isotope-filters .filter-active').classList.remove('filter-active');
-        this.classList.add('filter-active');
-        initIsotope.arrange({
-          filter: this.getAttribute('data-filter')
-        });
-        if (typeof aosInit === 'function') {
-          aosInit();
-        }
-      }, false);
-    });
+//   isotopeItem.querySelectorAll('.isotope-filters li').forEach(function(filters) {
+//     filters.addEventListener('click', function() {
+//       isotopeItem.querySelector('.isotope-filters .filter-active').classList.remove('filter-active');
+//       this.classList.add('filter-active');
+//       initIsotope.arrange({
+//         filter: this.getAttribute('data-filter')
+//       });
+//       if (typeof aosInit === 'function') {
+//         aosInit();
+//       }
+//     }, false);
+//   });
 
+// });
+
+document.addEventListener("DOMContentLoaded", function () {
+  var iso = new Isotope(".isotope-container", {
+      itemSelector: ".isotope-item",
+      layoutMode: "masonry"
   });
 
-  /**
-   * Init swiper sliders
-   */
-  function initSwiper() {
-    document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
-      let config = JSON.parse(
-        swiperElement.querySelector(".swiper-config").innerHTML.trim()
-      );
+  document.querySelectorAll(".portfolio-filters li").forEach(filter => {
+      filter.addEventListener("click", function () {
+          let filterValue = this.getAttribute("data-filter");
+          iso.arrange({ filter: filterValue });
 
-      if (swiperElement.classList.contains("swiper-tab")) {
-        initSwiperWithCustomPagination(swiperElement, config);
-      } else {
-        new Swiper(swiperElement, config);
-      }
-    });
-  }
+          document.querySelectorAll(".portfolio-filters li").forEach(el => el.classList.remove("filter-active"));
+          this.classList.add("filter-active");
+      });
+  });
+});
 
-  window.addEventListener("load", initSwiper);
 
-  /**
-   * Correct scrolling position upon page load for URLs containing hash links.
-   */
-  window.addEventListener('load', function(e) {
-    if (window.location.hash) {
-      if (document.querySelector(window.location.hash)) {
-        setTimeout(() => {
-          let section = document.querySelector(window.location.hash);
-          let scrollMarginTop = getComputedStyle(section).scrollMarginTop;
-          window.scrollTo({
-            top: section.offsetTop - parseInt(scrollMarginTop),
-            behavior: 'smooth'
-          });
-        }, 100);
-      }
+/**
+ * Init swiper sliders
+ */
+function initSwiper() {
+  document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
+    let config = JSON.parse(
+      swiperElement.querySelector(".swiper-config").innerHTML.trim()
+    );
+
+    if (swiperElement.classList.contains("swiper-tab")) {
+      initSwiperWithCustomPagination(swiperElement, config);
+    } else {
+      new Swiper(swiperElement, config);
     }
   });
+}
 
-  /**
-   * Navmenu Scrollspy
-   */
-  let navmenulinks = document.querySelectorAll('.navmenu a');
+window.addEventListener("load", initSwiper);
 
-  function navmenuScrollspy() {
-    navmenulinks.forEach(navmenulink => {
-      if (!navmenulink.hash) return;
-      let section = document.querySelector(navmenulink.hash);
-      if (!section) return;
-      let position = window.scrollY + 200;
-      if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
-        document.querySelectorAll('.navmenu a.active').forEach(link => link.classList.remove('active'));
-        navmenulink.classList.add('active');
-      } else {
-        navmenulink.classList.remove('active');
-      }
-    })
+/**
+ * Correct scrolling position upon page load for URLs containing hash links.
+ */
+window.addEventListener('load', function(e) {
+  if (window.location.hash) {
+    if (document.querySelector(window.location.hash)) {
+      setTimeout(() => {
+        let section = document.querySelector(window.location.hash);
+        let scrollMarginTop = getComputedStyle(section).scrollMarginTop;
+        window.scrollTo({
+          top: section.offsetTop - parseInt(scrollMarginTop),
+          behavior: 'smooth'
+        });
+      }, 100);
+    }
   }
-  window.addEventListener('load', navmenuScrollspy);
-  document.addEventListener('scroll', navmenuScrollspy);
+});
+
+/**
+ * Navmenu Scrollspy
+ */
+let navmenulinks = document.querySelectorAll('.navmenu a');
+
+function navmenuScrollspy() {
+  navmenulinks.forEach(navmenulink => {
+    if (!navmenulink.hash) return;
+    let section = document.querySelector(navmenulink.hash);
+    if (!section) return;
+    let position = window.scrollY + 200;
+    if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
+      document.querySelectorAll('.navmenu a.active').forEach(link => link.classList.remove('active'));
+      navmenulink.classList.add('active');
+    } else {
+      navmenulink.classList.remove('active');
+    }
+  })
+}
+window.addEventListener('load', navmenuScrollspy);
+document.addEventListener('scroll', navmenuScrollspy);
 
 })();
 
-document.addEventListener("DOMContentLoaded", function () {
-  const profileContainers = document.querySelectorAll(".single-profile");
-  
-  profileContainers.forEach(container => {
-      const overlay = container.querySelector(".single-profile-overlay");
-      
-      container.addEventListener("mouseenter", function () {
-          overlay.style.transform = "scale(1)";
-      });
-      
-      container.addEventListener("mouseleave", function () {
-          overlay.style.transform = "scale(0)";
-      });
+// document.addEventListener("DOMContentLoaded", function () {
+//   const profileContainers = document.querySelectorAll(".single-profile");
+
+//   profileContainers.forEach(container => {
+//       const overlay = container.querySelector(".single-profile-overlay");
+    
+//       container.addEventListener("mouseenter", function () {
+//           overlay.style.transform = "scale(1)";
+//       });
+    
+//       container.addEventListener("mouseleave", function () {
+//           overlay.style.transform = "scale(0)";
+//       });
+//   });
+// });
+
+document.querySelector("form").addEventListener("submit", function (event) {
+event.preventDefault();
+let formData = new FormData(this);
+fetch(this.action, {
+    method: this.method,
+    body: formData,
+    headers: { "Accept": "application/json" }
+}).then(response => response.json())
+  .then(data => {
+      if (data.ok) {
+          document.querySelector(".sent-message").style.display = "block";
+      } else {
+          document.querySelector(".error-message").style.display = "block";
+      }
+  }).catch(error => {
+      console.error("Error:", error);
   });
 });
 
